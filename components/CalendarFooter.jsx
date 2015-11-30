@@ -21,7 +21,10 @@ var CalendarFooter = React.createClass({
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: 'rgba(214,69,65,1)',
-        color: 'white',
+        link: {
+          textDecoration: 'none',
+          color: 'white',
+        },
         hover: {
           textDecoration: 'underline',
           cursor: 'pointer',
@@ -65,7 +68,9 @@ var CalendarFooter = React.createClass({
       <div style={styles}>
         <a
           onMouseOver={this.hoverLink}
-          onMouseOut={this.hoverLink}>
+          onMouseOut={this.hoverLink}
+          style={styles.link}
+          href="https://github.com/athorell/christmas-calendar">
           Make your own Christmas Calendar
         </a>
       </div>
