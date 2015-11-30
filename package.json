@@ -1,0 +1,27 @@
+{
+  "name": "christmas-calendar-kit",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "npm run serve | npm run dev",
+    "serve": "./node_modules/.bin/http-server -p 8080",
+    "dev": "webpack-dev-server --progress --colors --port 8090"
+  },
+  "author": "a_thorell",
+  "license": "ISC",
+  "dependencies": {
+    "lodash": "^3.10.1",
+    "moment": "^2.10.6",
+    "react": "^0.14.2",
+    "react-dom": "^0.14.2"
+  },
+  "devDependencies": {
+    "babel-core": "^6.1.2",
+    "babel-loader": "^6.0.1",
+    "http-server": "^0.8.5",
+    "jsx-loader": "^0.13.2",
+    "webpack": "^1.12.3",
+    "webpack-dev-server": "^1.12.1"
+  }
+}
