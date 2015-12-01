@@ -19,7 +19,7 @@ var GifWindow = React.createClass({
     }
     return {
       open: JSON.parse(localStorage.getItem(number)) || null,
-      available: this.props.number <= Moment().date() && Moment().month() === 12,
+      available: this.props.number <= Moment().date(),
     };
   },
   
