@@ -1,5 +1,7 @@
 # christmas-calendar
 Welcome to the gif-Christmas-calendar! The calendar is created with React.js and inline styles, and free for you to modify as you want. Add gifs, style, add windows, the possibilites are endless!
+![Gif]
+(http://i.imgur.com/aJsqgGO.gif)
 ## HOW TO
 Here's how to make your own calendar.
 ### Clone
