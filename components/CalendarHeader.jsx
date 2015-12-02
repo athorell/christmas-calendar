@@ -5,9 +5,7 @@ var CalendarHeader = React.createClass({
   
   propTypes: {
     text: React.PropTypes.string,
-    desktop: React.PropTypes.bool,
-    tablet: React.PropTypes.bool,
-    mobile: React.PropTypes.bool,
+    media: React.PropTypes.string,
   },
   
   getStyles: function() {
@@ -21,26 +19,24 @@ var CalendarHeader = React.createClass({
         textAlign: 'center',
         color: 'rgba(214,69,65,1)',
       },
-      headerDesktop: {
+      desktop: {
         fontSize: '50px',
       },
-      headerTablet: {
+      tablet: {
         fontSize: '40px',
       },
-      headerMobile: {
+      mobile: {
         fontSize: '30px',
       }
     };
-    
-    var currentStyle;
-    if(this.props.desktop) {
-      currentStyle = styles.headerDesktop;
-    } else if(this.props.tablet) {
-      currentStyle = styles.headerTablet;
-    } else if(this.props.mobile) {
-      currentStyle = styles.headerMobile;
-    }
-    return Object.assign({}, styles.header, currentStyle);
+    var currentStyle = styles.header;
+    return this.applyMediaStyle(currentStyle, styles);
+  },
+  
+  applyMediaStyle: function(currentStyle, styles) {
+    var media = this.props.media;
+    var style = Object.assign({}, currentStyle, styles[media]);
+    return style;
   },
   
   render: function() {

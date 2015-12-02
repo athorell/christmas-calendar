@@ -7,9 +7,7 @@ var GifWindow = React.createClass({
   propTypes: {
     number: React.PropTypes.number,
     gif: React.PropTypes.string,
-    desktop: React.PropTypes.bool,
-    tablet: React.PropTypes.bool,
-    mobile: React.PropTypes.bool,
+    media: React.PropTypes.string,
   },
   
   getInitialState: function() {
@@ -40,17 +38,16 @@ var GifWindow = React.createClass({
       open: {
         backgroundColor: 'rgba(253,227,167,1)',
         img: {
-          position: 'absolute',
-          top: '50%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)'
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
         }
       },
       disabled: {
         backgroundColor: 'rgba(214,69,65,1)',
         cursor: 'default',
       },
-      windowDesktop: {
+      desktop: {
         width: '200px',
         height: '200px',
         open: {
@@ -60,7 +57,7 @@ var GifWindow = React.createClass({
           }
         }
       },
-      windowTablet: {
+      tablet: {
         width: '150px',
         height: '150px',
         open: {
@@ -70,7 +67,7 @@ var GifWindow = React.createClass({
           }
         }
       },
-      windowMobile: {
+      mobile: {
         width: '100px',
         height: '100px',
         open: {
@@ -92,28 +89,18 @@ var GifWindow = React.createClass({
       // Window is open
       currentStyle = Object.assign({}, styles.window, styles.open);
     }
-    return this.applyMediaStyle(styles, currentStyle);
+    return this.applyMediaStyle(currentStyle, styles);
   },
   
-  applyMediaStyle: function(styles, appendStyle) {
-    var mediaStyle;
-    if(this.props.desktop) {
-      mediaStyle = Object.assign({}, appendStyle, styles.windowDesktop);
-    } else if(this.props.tablet) {
-      mediaStyle = Object.assign({}, appendStyle, styles.windowTablet);
-    } else if(this.props.mobile) {
-      mediaStyle = Object.assign({}, appendStyle, styles.windowMobile);
-    }
+  applyMediaStyle: function(currentStyle, styles) {
+    var media = this.props.media;
+    var style;
     if(this.state.open) {
-      if(this.props.desktop) {
-        mediaStyle = Object.assign({}, mediaStyle, styles.windowDesktop.open);
-      } else if(this.props.tablet) {
-        mediaStyle = Object.assign({}, mediaStyle, styles.windowTablet.open);
-      } else if(this.props.mobile) {
-        mediaStyle = Object.assign({}, mediaStyle, styles.windowMobile.open);
-      }
+      style = Object.assign({}, currentStyle, styles[media], styles[media].open);
+    } else {
+      style = Object.assign({}, currentStyle, styles[media]);
     }
-    return mediaStyle;
+    return style;
   },
   
   openWindow: function() {

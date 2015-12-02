@@ -3,6 +3,10 @@ var React = require('react');
 var CalendarFooter = React.createClass({
   displayName: 'CalendarFooter',
   
+  propTypes: {
+    media: React.PropTypes.string,
+  },
+  
   getInitialState: function() {
     return {
       hover: false,
@@ -14,7 +18,6 @@ var CalendarFooter = React.createClass({
       footer: {
         display: 'flex',
         flex: '1',
-        height: '100px',
         padding: '30px 0px',
         fontFamily: 'Helvetica',
         fontWeight: '200',
@@ -30,26 +33,30 @@ var CalendarFooter = React.createClass({
           cursor: 'pointer',
         }
       },
-      footerDesktop: {
+      desktop: {
+        height: '100px',
         fontSize: '20px',
+        marginTop: '50px',
       },
-      footerTablet: {
+      tablet: {
+        height: '80px',
         fontSize: '18px',
+        marginTop: '40px',
       },
-      footerMobile: {
+      mobile: {
+        height: '60px',
         fontSize: '15px',
+        marginTop: '30px',
       }
     };
-    
-    var currentStyle;
-    if(this.props.desktop) {
-      currentStyle = styles.footerDesktop;
-    } else if(this.props.tablet) {
-      currentStyle = styles.footerTablet;
-    } else if(this.props.mobile) {
-      currentStyle = styles.footerMobile;
-    }
-    return Object.assign({}, styles.footer, currentStyle);
+    var currentStyle = styles.footer;
+    return this.applyMediaStyle(currentStyle, styles);
+  },
+  
+  applyMediaStyle: function(currentStyle, styles) {
+    var media = this.props.media;
+    var style = Object.assign({}, currentStyle, styles[media]);
+    return style;
   },
   
   hoverLink: function() {

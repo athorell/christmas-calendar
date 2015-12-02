@@ -56,26 +56,25 @@ var Calendar = React.createClass({
         flexWrap: 'wrap',
         justifyContent: 'center',
       },
-      windowsDesktop: {
+      desktop: {
         padding: '0px 50px 50px 50px',
       },
-      windowsTablet: {
+      tablet: {
         padding: '0px 30px 30px 30px',
       },
-      windowsMobile: {
+      mobile: {
         padding: '0px 10px 10px 10px',
       }
     };
 
-    var currentStyle;
-    if(this.state.desktop) {
-      currentStyle = styles.windowsDesktop;
-    } else if(this.state.tablet) {
-      currentStyle = styles.windowsTablet;
-    } else if(this.state.mobile) {
-      currentStyle = styles.windowsMobile;
-    }
-    return Object.assign({}, styles.windows, currentStyle);
+    var currentStyle = styles.windows;
+    return this.applyMediaStyle(currentStyle, styles);
+  },
+  
+  applyMediaStyle: function(currentStyle, styles) {
+    var media = this.props.media;
+    var style = Object.assign({}, currentStyle, styles[media]);
+    return style;
   },
   
   onResize: function() {
@@ -84,10 +83,16 @@ var Calendar = React.createClass({
   
   calculateSize: function() {
     var width = document.documentElement.clientWidth;
+    var screen;
+    if(width >= 800) {
+      screen = 'desktop';
+    } else if(width < 800 && width >= 628) {
+      screen = 'tablet';
+    } else if(width < 628) {
+      screen = 'mobile';
+    }
     return {
-      desktop: width >= 800,
-      tablet: width < 800 && width >= 628,
-      mobile: width < 628,
+      media: screen,
     };
   },
   
@@ -99,9 +104,7 @@ var Calendar = React.createClass({
           key={window.number}
           number={window.number}
           gif={window.gif}
-          desktop={state.desktop}
-          tablet={state.tablet}
-          mobile={state.mobile}
+          media={state.media}
         />
       );
     });
@@ -114,17 +117,13 @@ var Calendar = React.createClass({
       <div style={{display: 'flex', minHeight: '100vh', flexDirection: 'column'}}>
         <CalendarHeader
           text="Merry Christmas!"
-          desktop={state.desktop}
-          tablet={state.tablet}
-          mobile={state.mobile}
+          media={state.media}
         />
         <div style={styles}>
           {this.renderWindows()}
         </div>
         <CalendarFooter
-          desktop={state.desktop}
-          tablet={state.tablet}
-          mobile={state.mobile}
+          media={state.media}
         />
       </div>
     )
